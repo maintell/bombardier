@@ -29,6 +29,7 @@ type kingpinParser struct {
 	timeout           time.Duration
 	latencies         bool
 	insecure          bool
+	compressed        bool
 	disableKeepAlives bool
 	method            string
 	body              string
@@ -60,6 +61,7 @@ func newKingpinParser() argsParser {
 		certPath:     "",
 		keyPath:      "",
 		insecure:     false,
+		compressed:   false,
 		url:          "",
 		rate:         new(nullableUint64),
 		clientType:   fhttp,
@@ -86,7 +88,7 @@ func newKingpinParser() argsParser {
 		PlaceHolder("GET").
 		Short('m').
 		StringVar(&kparser.method)
-	app.Flag("body", "Request body").
+	app.Flag("data-binary", "Request body").
 		Default("").
 		Short('b').
 		StringVar(&kparser.body)
@@ -126,6 +128,10 @@ func newKingpinParser() argsParser {
 		PlaceHolder(defaultTestDuration.String()).
 		Short('d').
 		SetValue(kparser.duration)
+
+	app.Flag("compressed", "Compressed").
+		Short('C').
+		BoolVar(&kparser.compressed)
 
 	app.Flag("rate", "Rate limit in requests per second").
 		PlaceHolder("[pos. int.]").

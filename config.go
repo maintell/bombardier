@@ -10,7 +10,7 @@ import (
 type config struct {
 	numConns                       uint64
 	numReqs                        *uint64
-	disableKeepAlives         bool
+	disableKeepAlives              bool
 	duration                       *time.Duration
 	url, method, certPath, keyPath string
 	body, bodyFilePath             string
@@ -125,6 +125,9 @@ func (c *config) checkTimeoutDuration() error {
 func (c *config) checkHTTPParameters() error {
 	if !allowedHTTPMethod(c.method) {
 		return &invalidHTTPMethodError{method: c.method}
+	}
+	if c.body != "" {
+		c.method = "POST"
 	}
 	if !canHaveBody(c.method) && (c.body != "" || c.bodyFilePath != "") {
 		return errBodyNotAllowed

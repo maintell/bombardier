@@ -21,9 +21,9 @@ var (
 	emptyConf = config{}
 	parser    = newKingpinParser()
 
-	defaultTestDuration  = 10 * time.Second
-	defaultNumberOfConns = uint64(125)
-	defaultTimeout       = 2 * time.Second
+	defaultTestDuration  = 60 * time.Second
+	defaultNumberOfConns = uint64(512)
+	defaultTimeout       = 5 * time.Second
 
 	httpMethods = []string{
 		"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS",

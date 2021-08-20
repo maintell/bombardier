@@ -35,10 +35,10 @@ jobs:
         go build -v -o ./build/bomb_linux_arm
         export GOOS=windows
         export GOARCH=arm 
-        go build -v -o ./build/bomb_win_arm
+        go build -v -o ./build/bomb_win_arm.exe
         export GOOS=windows
         export GOARCH=amd64 
-        go build -v -o ./build/bomb_win_x64
+        go build -v -o ./build/bomb_win_x64.exe
 
     - name: list
       run: ls ./build
